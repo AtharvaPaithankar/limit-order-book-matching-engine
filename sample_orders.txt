@@ -1,0 +1,18 @@
+# Resting buy orders at 100.00, oldest first (FIFO / price-time priority)
+ADD BUY 1 100.00 50
+ADD BUY 2 100.00 30
+
+# A sell order that only partially crosses order 1 (30 of its 50 shares)
+ADD SELL 3 100.00 30
+
+# A resting sell above the market -- won't match anything yet
+ADD SELL 4 101.00 40
+
+# Cancel order 2 before it ever trades
+CANCEL 2
+
+# A big buy that sweeps the remainder of order 1, then rests
+ADD BUY 5 101.00 60
+
+# Trying to cancel an order that already fully filled
+CANCEL 3
